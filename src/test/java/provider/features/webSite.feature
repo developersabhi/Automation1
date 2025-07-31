@@ -55,4 +55,17 @@
       Then user enter the data on the Search.
       Then User Verify the Edited Website on list.
       And User will logout.
-      And User Close the Browser;
+#      And User Close the Browser;
+
+  @WebSiteDelete
+  Scenario: Scenario_3:Delete website on the list.
+    Given User log in to provider URL and is already present at the website list page.
+    Then click on the  "Noti Cancel" button.
+    Then enter the data value for search.
+    Then User click on the "Action" button.
+    Then User click on the "Delete" button.
+    Then User click on the "Yes" button.
+    Then User click on the "Ok" button.
+    Then user enter the data on the Search.
+    Then User will logout.
+    And User Close the Browser;

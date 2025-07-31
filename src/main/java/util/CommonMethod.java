@@ -60,6 +60,14 @@ public class CommonMethod{
     @FindBy(xpath="//i//child::img[@src ='/user/images/edit-icon.svg']")
     WebElement editBtn;
 
+    @FindBy(xpath="//i//child::img[@src ='/user/images/delete-icon.svg']")
+    WebElement deleteBtn;
+
+    @FindBy(xpath = "//div[@class ='swal2-actions']/child::button[@class='swal2-confirm swal2-styled']")
+    WebElement yesBtn;
+
+    @FindBy(xpath = "//div[@class ='swal2-actions']/child::button[@class='swal2-confirm swal2-styled']")
+    WebElement okBtn;
 
 
     public static Map<String,String> readProperties(){
@@ -187,6 +195,26 @@ public class CommonMethod{
                 waitForVisibleElement(editBtn);
                 editBtn.click();
                 logger.info("EDIT button Clicked");
+                break;
+            case "DELETE":
+                logger.info("Delete Button...");
+                waitForVisibleElement(deleteBtn);
+                deleteBtn.click();
+                logger.info("Delete Button Clicked");
+                break;
+            case "YES":
+                logger.info("Yes Button...");
+                waitForVisibleElement(yesBtn);
+                yesBtn.click();
+                logger.info("Yes Button Clicked");
+                break;
+            case "OK":
+                explicitWait(2000);
+                logger.info("OK Button...");
+                waitForVisibleElement(okBtn);
+                okBtn.click();
+                logger.info("OK Button Clicked");
+                break;
 
             default:
                 logger.info("Invalid button type: " + button);

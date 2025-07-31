@@ -80,7 +80,7 @@ public class Website extends CommonMethod {
     @FindBy(xpath = "//input[@type ='search']")
     WebElement search;
 
-    public void search() throws InterruptedException {
+    public void search()   {
         commonMethod.explicitWait(2000);
         logger.info("on the Searching");
         waitForVisibleElement(search);
@@ -91,6 +91,7 @@ public class Website extends CommonMethod {
         Actions action=new Actions(TestBase.getWebDriver());
         search.sendKeys(Keys.ENTER);
         commonMethod.explicitWait(3000);
+//        Assert
     }
 
     public void enterValue(String value){
