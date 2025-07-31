@@ -6,13 +6,16 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = {"src/test/java/provider/features/addWebSite.feature"},
+        features = {
+                "src/test/java/provider/features/webSite.feature",
+//                "src/test/java/provider/features/editWebSite.feature"
+        },
         glue = {
                 "com.automation.provider.website",
                 "com.automation.tests.base"
         }
-//        ,
-//        dryRun = false
+        ,
+        dryRun = false
 //        tags = "",
 //        plugin = {},
 //        monochrome = true
