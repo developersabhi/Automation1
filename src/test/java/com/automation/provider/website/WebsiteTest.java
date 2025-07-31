@@ -47,8 +47,9 @@ public class WebsiteTest extends CommonMethod {
         commonMethod.clickOnButtons(string);
     }
     @Then("User Verify the Edited Website on list.")
-    public void user_verify_the_edited_website_on_list() {
-
+    public void user_verify_the_edited_website_on_list() throws InterruptedException {
+        website.verifyAddedSite();
+        System.out.println("Verify edited");
     }
 
 

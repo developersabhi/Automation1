@@ -84,6 +84,7 @@ public class Website extends CommonMethod {
         commonMethod.explicitWait(2000);
         logger.info("on the Searching");
         waitForVisibleElement(search);
+        search.clear();
         search.sendKeys(data.get(0));
         logger.info("SEARCH button Clicked");
         Actions action=new Actions(TestBase.getWebDriver());
