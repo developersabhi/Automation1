@@ -53,6 +53,13 @@ public class CommonMethod{
     @FindBy(xpath = "//button[contains(text(), 'Logout')]")
     WebElement logout;
 
+    @FindBy(xpath = "//button[@class='btn action-btn']")
+    WebElement actionBtn;
+
+//    @FindBy(xpath = "//button[@type='button']//child::i//child::img[@src ='/user/images/edit-icon.svg']")
+    @FindBy(xpath="//i//child::img[@src ='/user/images/edit-icon.svg']")
+    WebElement editBtn;
+
 
 
     public static Map<String,String> readProperties(){
@@ -169,7 +176,17 @@ public class CommonMethod{
                 logger.info("LOGOUT button Clicked");
                 break;
 
-
+            case "ACTION":
+                System.out.println("Action Button....");
+                waitForVisibleElement(actionBtn);
+                actionBtn.click();
+                logger.info("ACTION button Clicked");
+                break;
+            case "EDIT":
+                System.out.println("Edit Button...");
+                waitForVisibleElement(editBtn);
+                editBtn.click();
+                logger.info("EDIT button Clicked");
 
             default:
                 logger.info("Invalid button type: " + button);

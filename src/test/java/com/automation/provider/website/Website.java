@@ -81,6 +81,7 @@ public class Website extends CommonMethod {
     WebElement search;
 
     public void search() throws InterruptedException {
+        commonMethod.explicitWait(2000);
         logger.info("on the Searching");
         waitForVisibleElement(search);
         search.sendKeys(data.get(0));
@@ -88,6 +89,13 @@ public class Website extends CommonMethod {
         Actions action=new Actions(TestBase.getWebDriver());
         search.sendKeys(Keys.ENTER);
         commonMethod.explicitWait(3000);
+    }
+
+    public void enterValue(String value){
+        search.sendKeys(value);
+        Actions action = new Actions(TestBase.getWebDriver());
+        search.sendKeys(Keys.ENTER);
+        commonMethod.explicitWait(1000);
     }
 
     public void enterValue(String value, String field ){
@@ -153,18 +161,7 @@ public class Website extends CommonMethod {
                 database =value+randomString();
                 baseUtil.enterText(databaseName, database);
                 break;
-//            case "USER REGISTRACTION HOOK URL":
-//                baseUtil.enterText(userRegistractionHookURL, value);
-//                break;
-//            case "SECRETKEY":
-//                baseUtil.enterText(secretKey, value);
-//                break;
 
-            case "SEARCH":
-                waitForVisibleElement(search);
-                search.sendKeys(data.get(2));
-                logger.info("SEARCH button Clicked");
-                break;
             default:
                 System.out.println("Not Match Data");
 

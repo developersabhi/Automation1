@@ -33,9 +33,26 @@ public class WebsiteTest extends CommonMethod {
 
     @Then("User Close the Browser;")
     public void user_close_the_browser() {
-        commonMethod.explicitWait(2000);
+//        commonMethod.explicitWait(2000);
         getTestBase().quitBrowser();
     }
+
+    @Then("user enter the data {string} on the Search.")
+    public void user_enter_the_data_on_the_search(String string) {
+        website.enterValue(string);
+    }
+
+    @Then("User click on the {string} button.")
+    public void user_click_on_the_button(String string) {
+        commonMethod.clickOnButtons(string);
+    }
+    @Then("User Verify the Edited Website on list.")
+    public void user_verify_the_edited_website_on_list() {
+
+    }
+
+
+
 
 
 }
