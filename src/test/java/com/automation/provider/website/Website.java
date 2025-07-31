@@ -85,7 +85,8 @@ public class Website extends CommonMethod {
         logger.info("on the Searching");
         waitForVisibleElement(search);
         search.clear();
-        search.sendKeys(data.get(0));
+//        search.sendKeys(data.get(0));
+        search.sendKeys(webSiteName);
         logger.info("SEARCH button Clicked");
         Actions action=new Actions(TestBase.getWebDriver());
         search.sendKeys(Keys.ENTER);
@@ -191,5 +192,22 @@ public class Website extends CommonMethod {
 
     public void clickAddWebSiteButton(String btn) {
        clickOnButtons(btn);
+    }
+
+    public void searchValue(){
+        logger.info("Search Value Method called");
+        try {
+            if (data.isEmpty()) {
+                logger.error("Data list is empty!");
+            }
+        }catch (Exception e){
+
+            throw new IllegalStateException("Data list is empty in searchValue()");
+        }
+        logger.info("Searching the created website :: " + webSiteName);
+        search.sendKeys(webSiteName);
+        System.out.println("Searching for: " + webSiteName);
+        search.sendKeys(Keys.ENTER);
+        explicitWait(1000);
     }
 }

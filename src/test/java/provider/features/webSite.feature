@@ -28,13 +28,13 @@
       Then user enter the data on the Search.
       Then User Verify the Add Website on list
       And User will logout.
-      And User Close the Browser;
+#      And User Close the Browser;
 
     @WebsiteList_Edit
     Scenario:Scenario_2: Edit website and verify the edited website.
       Given User log in to provider URL and is already present at the website list page.
       Then click on the  "Noti Cancel" button.
-      Then user enter the data "Gamedbdabbfdcdc" on the Search.
+      Then enter the data value for search.
       Then User click on the "Action" button.
       Then User click on the "Edit" button.
       Then user enter the data "Game" for "Website Name" field.

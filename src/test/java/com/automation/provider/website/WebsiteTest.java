@@ -22,6 +22,11 @@ public class WebsiteTest extends CommonMethod {
 
     }
 
+    @Then("enter the data value for search.")
+    public void enter_the_data_value_for_search(){
+        website.searchValue();
+    }
+
     @Then("user enter the data on the Search.")
     public void user_enter_the_data_on_the_Search() throws InterruptedException {
        website.search();
