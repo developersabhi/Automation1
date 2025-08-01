@@ -18,10 +18,7 @@ import util.TestBase;
 
 import javax.swing.*;
 import java.rmi.server.UID;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Website extends CommonMethod {
     static  protected String webSiteName, loginSlugName, database;
@@ -80,18 +77,51 @@ public class Website extends CommonMethod {
     @FindBy(xpath = "//input[@type ='search']")
     WebElement search;
 
+    @FindBy(xpath = "//p[@class='text-danger validation_msg websiteName']")
+    WebElement websiteErrorMessage;
+
+    @FindBy(xpath = "//p[@class='text-danger validation_msg ip']")
+    WebElement ipErrorMessage;
+
+    @FindBy(xpath = "//p[@class='text-danger validation_msg url']")
+    WebElement urlErrorMessage;
+
+    @FindBy(xpath = "//p[@class='text-danger validation_msg clientName']")
+    WebElement clientNameErrorMessage;
+
+    @FindBy(xpath = "//p[@class='text-danger validation_msg login_slug']")
+    WebElement loginSlugErrorMessage;
+
+    @FindBy(xpath = "//p[@class='text-danger validation_msg database_name']")
+    WebElement databaseNameErrorMessage;
+
+    @FindBy(xpath = "//p[@class='text-danger validation_msg secret_key']")
+    WebElement secretKeyErrorMessage;
+
+
     public void search()   {
         commonMethod.explicitWait(2000);
         logger.info("on the Searching");
         waitForVisibleElement(search);
         search.clear();
-//        search.sendKeys(data.get(0));
         search.sendKeys(webSiteName);
         logger.info("SEARCH button Clicked");
-        Actions action=new Actions(TestBase.getWebDriver());
         search.sendKeys(Keys.ENTER);
         commonMethod.explicitWait(3000);
-//        Assert
+        Assert.assertEquals(data.get(0), webSiteName);
+    }
+    public void verifyDeletedSite()   {
+        commonMethod.explicitWait(2000);
+        logger.info("on the Searching");
+        waitForVisibleElement(search);
+        search.clear();
+        search.sendKeys(webSiteName);
+        logger.info("SEARCH button Clicked");
+        search.sendKeys(Keys.ENTER);
+        commonMethod.explicitWait(3000);
+        if(!commonMethod.isElement(websiteName)) {
+            Assert.assertNotNull("Site not deleted successfully.", websiteName);
+        }
     }
 
     public void enterValue(String value){
@@ -210,5 +240,42 @@ public class Website extends CommonMethod {
         System.out.println("Searching for: " + webSiteName);
         search.sendKeys(Keys.ENTER);
         explicitWait(1000);
+    }
+
+    public void VerifyErrorMessage(List<Map<String,String>> list) {
+        for (Map<String, String> map : list) {
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                String fieldName = entry.getKey();
+                String errorMess = entry.getValue();
+
+                switch (fieldName.toUpperCase()) {
+                    case "WEBSITE NAME":
+                        Assert.assertEquals("Error message for website name not as expected. Expected :: "
+                                + errorMess + " Actual :: " + websiteErrorMessage.getText(), errorMess, websiteErrorMessage.getText());
+                        break;
+                    case "IP":
+                        Assert.assertEquals(errorMess, ipErrorMessage.getText());
+                        break;
+                    case "URL":
+                        Assert.assertEquals(errorMess, urlErrorMessage.getText());
+                        break;
+                    case "CLIENT NAME":
+                        Assert.assertEquals(errorMess, clientNameErrorMessage.getText());
+                        break;
+                    case "LOGIN SLUG":
+                        Assert.assertEquals(errorMess, loginSlugErrorMessage.getText());
+                        break;
+                    case "DATABASE NAME":
+                        Assert.assertEquals(errorMess, databaseNameErrorMessage.getText());
+                        break;
+                    case "SECRET KEY":
+                        Assert.assertEquals(errorMess, secretKeyErrorMessage.getText());
+                        break;
+                    default:
+                        logger.info("Not getting Error Message");
+                }
+            }
+
+        }
     }
 }

@@ -221,6 +221,18 @@ public class CommonMethod{
         }
     }
 
+    public boolean isElement(WebElement element){
+        boolean flag=false;
+        try{
+            if(element.isDisplayed()){
+                flag=true;
+            }
+        }catch (Exception e){
+            logger.warn("Element not displayed or not visible.");
+        }
+        return flag;
+    }
+
     public void waitAndSendKeys(WebElement element, String text){
          waitForVisibleElement(element);
          element.click();
