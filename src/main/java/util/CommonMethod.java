@@ -24,7 +24,7 @@ import java.util.function.Function;
 //public class CommonMethod extends TestBase {
 public class CommonMethod{
     WebDriverWait waitWebDriver= new WebDriverWait(TestBase.getWebDriver(), Duration.ofMillis(10000));
-    WebDriverWait wait = new WebDriverWait(TestBase.getWebDriver(),Duration.ofMillis(3000));
+//    WebDriverWait wait = new WebDriverWait(TestBase.getWebDriver(),Duration.ofMillis(3000));
     Logger logger = Logger.getLogger(CommonMethod.class);
     private static final TestBase testBase=TestBase.getInstance();
     BaseUtil baseUtil=new BaseUtil();
@@ -47,7 +47,7 @@ public class CommonMethod{
     @FindBy(xpath = "(//button[contains(text(),'Submit')])[1]")
     WebElement submit;
 
-    @FindBy(xpath = "//a[contains(text(), ' Add Website')]")
+    @FindBy(xpath = "(//button[contains(text(), 'Cancel')])[2]")
     WebElement cancel;
 
     @FindBy(xpath = "//button[contains(text(), 'Logout')]")
@@ -60,6 +60,14 @@ public class CommonMethod{
     @FindBy(xpath="//i//child::img[@src ='/user/images/edit-icon.svg']")
     WebElement editBtn;
 
+    @FindBy(xpath="//i//child::img[@src ='/user/images/delete-icon.svg']")
+    WebElement deleteBtn;
+
+    @FindBy(xpath = "//div[@class ='swal2-actions']/child::button[@class='swal2-confirm swal2-styled']")
+    WebElement yesBtn;
+
+    @FindBy(xpath = "//div[@class ='swal2-actions']/child::button[@class='swal2-confirm swal2-styled']")
+    WebElement okBtn;
 
 
     public static Map<String,String> readProperties(){
@@ -187,10 +195,42 @@ public class CommonMethod{
                 waitForVisibleElement(editBtn);
                 editBtn.click();
                 logger.info("EDIT button Clicked");
+                break;
+            case "DELETE":
+                logger.info("Delete Button...");
+                waitForVisibleElement(deleteBtn);
+                deleteBtn.click();
+                logger.info("Delete Button Clicked");
+                break;
+            case "YES":
+                logger.info("Yes Button...");
+                waitForVisibleElement(yesBtn);
+                yesBtn.click();
+                logger.info("Yes Button Clicked");
+                break;
+            case "OK":
+                explicitWait(2000);
+                logger.info("OK Button...");
+                waitForVisibleElement(okBtn);
+                okBtn.click();
+                logger.info("OK Button Clicked");
+                break;
 
             default:
                 logger.info("Invalid button type: " + button);
         }
+    }
+
+    public boolean isElement(WebElement element){
+        boolean flag=false;
+        try{
+            if(element.isDisplayed()){
+                flag=true;
+            }
+        }catch (Exception e){
+            logger.warn("Element not displayed or not visible.");
+        }
+        return flag;
     }
 
     public void waitAndSendKeys(WebElement element, String text){
