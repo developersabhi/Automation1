@@ -21,15 +21,17 @@ import java.rmi.server.UID;
 import java.util.*;
 
 public class Website extends CommonMethod {
-    static  protected String webSiteName, loginSlugName, database;
+    static protected String webSiteName, loginSlugName, database;
 
     Logger logger = Logger.getLogger(Website.class);
     BaseUtil baseUtil = new BaseUtil();
     CommonMethod commonMethod = new CommonMethod();
-    Website(){
+
+    Website() {
         PageFactory.initElements(TestBase.getWebDriver(), this);
     }
-    List<String> data=new ArrayList<>();
+
+    List<String> data = new ArrayList<>();
 
     @FindBy(xpath = "//input[@placeholder ='Enter Website Name']")
     WebElement websiteName;
@@ -99,7 +101,7 @@ public class Website extends CommonMethod {
     WebElement secretKeyErrorMessage;
 
 
-    public void search()   {
+    public void search() {
         commonMethod.explicitWait(2000);
         logger.info("on the Searching");
         waitForVisibleElement(search);
@@ -110,7 +112,8 @@ public class Website extends CommonMethod {
         commonMethod.explicitWait(3000);
         Assert.assertEquals(data.get(0), webSiteName);
     }
-    public void verifyDeletedSite()   {
+
+    public void verifyDeletedSite() {
         commonMethod.explicitWait(2000);
         logger.info("on the Searching");
         waitForVisibleElement(search);
@@ -119,24 +122,24 @@ public class Website extends CommonMethod {
         logger.info("SEARCH button Clicked");
         search.sendKeys(Keys.ENTER);
         commonMethod.explicitWait(3000);
-        if(!commonMethod.isElement(websiteName)) {
+        if (!commonMethod.isElement(websiteName)) {
             Assert.assertNotNull("Site not deleted successfully.", websiteName);
         }
     }
 
-    public void enterValue(String value){
+    public void enterValue(String value) {
         search.sendKeys(value);
         Actions action = new Actions(TestBase.getWebDriver());
         search.sendKeys(Keys.ENTER);
         commonMethod.explicitWait(1000);
     }
 
-    public void enterValue(String value, String field ){
+    public void enterValue(String value, String field) {
 //        WebDriver driver = new ChromeDriver();
-        switch (field.toUpperCase()){
+        switch (field.toUpperCase()) {
             case "WEBSITE NAME":
                 waitForVisibleElement(websiteName);
-                webSiteName =value+randomString();
+                webSiteName = value + randomString();
                 baseUtil.enterText(websiteName, webSiteName);
                 data.add(webSiteName);
                 break;
@@ -185,13 +188,13 @@ public class Website extends CommonMethod {
                 break;
             case "LOGIN SLUG":
                 waitForVisibleElement(loginSlug);
-                loginSlugName =value+randomString();
+                loginSlugName = value + randomString();
                 baseUtil.enterText(loginSlug, loginSlugName);
                 data.add(loginSlugName);
                 break;
             case "DATABASE NAME":
                 waitForVisibleElement(databaseName);
-                database =value+randomString();
+                database = value + randomString();
                 baseUtil.enterText(databaseName, database);
                 break;
 
@@ -201,37 +204,37 @@ public class Website extends CommonMethod {
         }
     }
 
-    public String randomString(){
-       return UUID.randomUUID().toString().substring(4).replaceAll("[^A-Za-z]", "");
+    public String randomString() {
+        return UUID.randomUUID().toString().substring(4).replaceAll("[^A-Za-z]", "");
     }
 
 
     public void verifyAddedSite() throws InterruptedException {
         commonMethod.explicitWait(2000);
-        List<String> UIData=new ArrayList<>();
-        String xpath="//tbody/tr/td[#index#]";
-        for (int i = 2; i <=6; i++) {
-            String byIndex="";
-            byIndex=xpath.replaceAll("#index#",String.valueOf(i));
+        List<String> UIData = new ArrayList<>();
+        String xpath = "//tbody/tr/td[#index#]";
+        for (int i = 2; i <= 6; i++) {
+            String byIndex = "";
+            byIndex = xpath.replaceAll("#index#", String.valueOf(i));
             UIData.add(TestBase.getWebDriver().findElement(By.xpath(byIndex)).getText());
         }
         Collections.sort(UIData);
         Collections.sort(data);
-        Assert.assertEquals("Expected data :: "+data+"actual data :: " + UIData + "are not matched"
-                , UIData,data);
+        Assert.assertEquals("Expected data :: " + data + "actual data :: " + UIData + "are not matched"
+                , UIData, data);
     }
 
     public void clickAddWebSiteButton(String btn) {
-       clickOnButtons(btn);
+        clickOnButtons(btn);
     }
 
-    public void searchValue(){
+    public void searchValue() {
         logger.info("Search Value Method called");
         try {
             if (data.isEmpty()) {
                 logger.error("Data list is empty!");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
             throw new IllegalStateException("Data list is empty in searchValue()");
         }
@@ -242,7 +245,7 @@ public class Website extends CommonMethod {
         explicitWait(1000);
     }
 
-    public void VerifyErrorMessage(List<Map<String,String>> list) {
+    public void VerifyErrorMessage(List<Map<String, String>> list) {
         for (Map<String, String> map : list) {
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 String fieldName = entry.getKey();
@@ -251,25 +254,38 @@ public class Website extends CommonMethod {
                 switch (fieldName.toUpperCase()) {
                     case "WEBSITE NAME":
                         Assert.assertEquals("Error message for website name not as expected. Expected :: "
-                                + errorMess + " Actual :: " + websiteErrorMessage.getText(), errorMess, websiteErrorMessage.getText());
+                                + errorMess + " Actual :: " + websiteErrorMessage.getText(),
+                                errorMess, websiteErrorMessage.getText());
                         break;
                     case "IP":
-                        Assert.assertEquals(errorMess, ipErrorMessage.getText());
+                        Assert.assertEquals("Error message for IP  not as expected.Expected :: "
+                                + errorMess + " Actual :: " + ipErrorMessage.getText(),
+                                errorMess, ipErrorMessage.getText());
                         break;
                     case "URL":
-                        Assert.assertEquals(errorMess, urlErrorMessage.getText());
+                        Assert.assertEquals("Error message for URL  not as expected.Expected :: "
+                                        + errorMess + " Actual :: " + urlErrorMessage.getText() ,
+                                errorMess, urlErrorMessage.getText());
                         break;
                     case "CLIENT NAME":
-                        Assert.assertEquals(errorMess, clientNameErrorMessage.getText());
+                        Assert.assertEquals("Error message for client name not as expected.Expected :: "
+                                        + errorMess + " Actual :: " + clientNameErrorMessage.getText() ,
+                                 errorMess, clientNameErrorMessage.getText());
                         break;
                     case "LOGIN SLUG":
-                        Assert.assertEquals(errorMess, loginSlugErrorMessage.getText());
+                        Assert.assertEquals("Error message for login slug not as expected.Expected :: "
+                                        + errorMess + " Actual :: " + loginSlugErrorMessage.getText() ,
+                                 errorMess, loginSlugErrorMessage.getText());
                         break;
                     case "DATABASE NAME":
-                        Assert.assertEquals(errorMess, databaseNameErrorMessage.getText());
+                        Assert.assertEquals("Error message for database name not as expected.Expected :: "
+                                +errorMess + " Actual :: " + databaseNameErrorMessage.getText() ,
+                                 errorMess, databaseNameErrorMessage.getText());
                         break;
                     case "SECRET KEY":
-                        Assert.assertEquals(errorMess, secretKeyErrorMessage.getText());
+                        Assert.assertEquals("Error message for secret key not as expected.Expected :: "
+                                +errorMess + " Actual :: " + secretKeyErrorMessage.getText() ,
+                                errorMess, secretKeyErrorMessage.getText());
                         break;
                     default:
                         logger.info("Not getting Error Message");

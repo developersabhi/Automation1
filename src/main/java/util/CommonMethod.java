@@ -24,7 +24,7 @@ import java.util.function.Function;
 //public class CommonMethod extends TestBase {
 public class CommonMethod{
     WebDriverWait waitWebDriver= new WebDriverWait(TestBase.getWebDriver(), Duration.ofMillis(10000));
-    WebDriverWait wait = new WebDriverWait(TestBase.getWebDriver(),Duration.ofMillis(3000));
+//    WebDriverWait wait = new WebDriverWait(TestBase.getWebDriver(),Duration.ofMillis(3000));
     Logger logger = Logger.getLogger(CommonMethod.class);
     private static final TestBase testBase=TestBase.getInstance();
     BaseUtil baseUtil=new BaseUtil();
@@ -47,7 +47,7 @@ public class CommonMethod{
     @FindBy(xpath = "(//button[contains(text(),'Submit')])[1]")
     WebElement submit;
 
-    @FindBy(xpath = "//a[contains(text(), ' Add Website')]")
+    @FindBy(xpath = "(//button[contains(text(), 'Cancel')])[2]")
     WebElement cancel;
 
     @FindBy(xpath = "//button[contains(text(), 'Logout')]")

@@ -69,6 +69,7 @@ public class WebsiteTest extends CommonMethod {
     public void click_on_the_button_and_verify_the_error_message_for_following_field(String btn, DataTable dataTable) {
         commonMethod.clickOnButtons(btn);
         List<Map<String,String> >data= dataTable.asMaps(String.class,String.class);
+        explicitWait(1000);
         website.VerifyErrorMessage(data);
 
 
